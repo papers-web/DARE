@@ -5,7 +5,7 @@
     <meta name="description"
           content="DCRE: Distribution-Conditional Retrieval Embedding for Aligning LLM Agents with Statistical Ecosystems">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>DCRE: Distribution-Conditional Retrieval Embedding for Aligning LLM Agents with Statistical Ecosystems</title>
+    <title>DARE: Aligning LLM Agents with the R Statistical Ecosystem via Distribution-Aware Retrieval</title>
 
     <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
 
@@ -130,7 +130,7 @@
         <div class="container is-max-desktop">
             <div class="columns is-centered">
                 <div class="column has-text-centered">
-                    <h1 class="title is-1 publication-title">DCRE: Distribution-Conditional Retrieval Embedding for Aligning LLM Agents with Statistical Ecosystems</h1>
+                    <h1 class="title is-1 publication-title">DARE: Aligning LLM Agents with the R Statistical Ecosystem via Distribution-Aware Retrieval</h1>
                     <div class="column has-text-centered publication-links">
                         </div>
                 </div>
@@ -145,13 +145,21 @@
             <div class="column is-four-fifths">
                 <h2 class="section-title">Abstract</h2>
                 <div class="abstract-box">
-                    Large Language Model (LLM)-based agents have shown strong capabilities in automating data science workflows, yet many rigorous and domain-specific statistical methods remain underutilized due to limitations in model knowledge and tooling. Existing Retrieval-Augmented Generation (RAG) approaches rely primarily on function-level semantic similarity and fail to account for data distribution characteristics that critically determine the applicability of statistical methods, leading to inaccurate retrieval and inefficient use of statistical resources.
-                    To address this limitation, we propose <span class="highlight">DCRE</span> (<span class="highlight">D</span>istribution-<span class="highlight">C</span>onditional <span class="highlight">R</span>etrieval <span class="highlight">E</span>mbedding), a distribution-aware retrieval model that conditions function representations on data distribution profiles. Our contributions are threefold:
-                    (i) we construct a curated knowledge base of 8,191 high-quality R package with functions spanning diverse statistical domains;
-                    (ii) we introduce DCRE, an embedding model that explicitly incorporates data distribution information for accurate R package retrieval; and
-                    (iii) we design <span class="highlight">URTABench</span>, the first benchmark for evaluating LLM agents on R-based data analysis tasks.
-                    Experimental results show that DCRE achieves an <span class="accent">NDCG@10 of 0.9347</span>, outperforming open-source state-of-the-art embedding models by up to 17% while using only 23M parameters. Furthermore, integrating DCRE into LLM agents significantly improves downstream statistical analysis performance up to <span class="accent">62.5%</span> on URTABench.
-            </div>
+                        Large Language Model (LLM)-based agents have shown strong capabilities in automating data science workflows.
+                        However, many rigorous statistical methods implemented in the R ecosystem remain underutilized due to limitations
+                        in model knowledge and tool retrieval. Existing Retrieval-Augmented Generation (RAG) approaches rely primarily
+                        on function-level semantic similarity and often ignore data distribution characteristics that determine statistical
+                        method applicability, leading to inaccurate retrieval. To address this limitation, we propose <b>DARE (Distribution-Aware Retrieval Embedding)</b> a lightweight and
+                        plug-and-play retrieval model that incorporates data distribution into function representations for R package retrieval. Our main contributions are threefold:
+                        (i) We construct <b>RPKB</b>, a curated knowledge base of 8,191 high-quality R packages with functions spanning diverse statistical domains.
+                        (ii) We introduce <b>DARE</b>, an embedding model that incorporates data distribution for accurate R package retrieval.
+                        (iii) We design <b>RCodingAgent</b>, an R-oriented LLM agent, together with a suite of R-based statistical analysis tasks to systematically evaluate LLM agents under realistic analytical scenarios.
+                        Experimental results show that <b>DARE</b> achieves an <b>NDCG@10 of 93.47%</b>, outperforming open-source
+                        state-of-the-art embedding models by up to <b>17%</b> on R package retrieval while using only <b>23M parameters</b>.
+                        Furthermore, integrating DARE into RCodingAgent significantly improves downstream statistical analysis performance
+                        across multiple analytical tasks. This work bridges modern LLM-based automation with established statistical
+                        computing ecosystems.
+                </div>
             </div>
         </div>
     </div>
@@ -167,6 +175,17 @@
         <img src="dcre.png" class="teaser-img">
         <p class="caption">
             <strong>Figure 2:</strong> Overview of the DCRE framework. DCRE jointly models semantic intent and data distribution constraints to enable reliable statistical function retrieval.
+        </p>
+
+
+        <img src="bench.png" class="teaser-img">
+        <p class="caption">
+            <strong>Figure 3:</strong> Pipline of Constructing Evaluation Tasks.
+        </p>
+
+        <img src="RCodingAgnt.png" class="teaser-img">
+        <p class="caption">
+            <strong>Figure 4:</strong> An example of integrating DARE into Agent.
         </p>
     </div>
 </section>
@@ -216,27 +235,52 @@
 
         <h3 class="title is-4 has-text-centered" style="margin-top: 4rem;">Downstream Agent Performance</h3>
         <div class="table-container">
-            <table class="custom-table">
-                <thead>
-                <tr>
-                    <th>Model</th>
-                    <th>w/o DCRE</th>
-                    <th>DCRE</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr><td>claude-haiku-4.5</td><td>0.0000</td><td class="best-score">0.5625</td></tr>
-                <tr><td>deepseek-v3.2</td><td>0.1250</td><td class="best-score">0.5625</td></tr>
-                <tr><td>gpt-5.2</td><td>0.3125</td><td class="best-score">0.6875</td></tr>
-                <tr><td>grok-4.1-fast</td><td>0.1250</td><td class="best-score">0.7500</td></tr>
-                <tr><td>mimo-v2-flash</td><td>0.0000</td><td class="best-score">0.6250</td></tr>
-                <tr><td>minimax-m2.1</td><td>0.0625</td><td class="best-score">0.6875</td></tr>
-                </tbody>
-            </table>
-        </div>
+        <table class="custom-table">
+            <thead>
+            <tr>
+                <th>Model</th>
+                <th>RCodingAgent (w/o DARE)</th>
+                <th>RCodingAgent with DARE</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>claude-haiku-4.5</td>
+                <td>6.25%</td>
+                <td class="best-score">56.25% (50.00%)</td>
+            </tr>
+            <tr>
+                <td>deepseek-v3.2</td>
+                <td>18.75%</td>
+                <td class="best-score">56.25% (37.50%)</td>
+            </tr>
+            <tr>
+                <td>gpt-5.2</td>
+                <td>25.00%</td>
+                <td class="best-score">62.50% (37.50%)</td>
+            </tr>
+            <tr>
+                <td>grok-4.1-fast</td>
+                <td>18.75%</td>
+                <td class="best-score">75.00% (56.25%)</td>
+            </tr>
+            <tr>
+                <td>mimo-v2-flash</td>
+                <td>12.50%</td>
+                <td class="best-score">62.50% (50.00%)</td>
+            </tr>
+            <tr>
+                <td>minimax-m2.1</td>
+                <td>12.50%</td>
+                <td class="best-score">68.75% (56.25%)</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
 
         <div style="text-align:  center">
-            <a href="https://info.flagcounter.com/tw6M"><img src="https://s05.flagcounter.com/map/tw6M/size_m/txt_000000/border_CCCCCC/pageviews_1/viewers_0/flags_0/" alt="Flag Counter" border="0"></a>
+            <a href="https://info.flagcounter.com/tw6M"><img src="https://s05.flagcounter.com/map/tw6M/size_m/txt_000000/border_CCCCCC/pageviews_1/viewers_1/flags_0/" alt="Flag Counter" border="0"></a>
         </div>
 
     </div>
