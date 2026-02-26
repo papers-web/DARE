@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="description"
-          content="DCRE: Distribution-Conditional Retrieval Embedding for Aligning LLM Agents with Statistical Ecosystems">
+          content="DARE: Distribution-Conditional Retrieval Embedding for Aligning LLM Agents with Statistical Ecosystems">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>DARE: Aligning LLM Agents with the R Statistical Ecosystem via Distribution-Aware Retrieval</title>
 
@@ -145,20 +145,22 @@
             <div class="column is-four-fifths">
                 <h2 class="section-title">Abstract</h2>
                 <div class="abstract-box">
-                        Large Language Model (LLM)-based agents have shown strong capabilities in automating data science workflows.
-                        However, many rigorous statistical methods implemented in the R ecosystem remain underutilized due to limitations
-                        in model knowledge and tool retrieval. Existing Retrieval-Augmented Generation (RAG) approaches rely primarily
-                        on function-level semantic similarity and often ignore data distribution characteristics that determine statistical
-                        method applicability, leading to inaccurate retrieval. To address this limitation, we propose <b>DARE (Distribution-Aware Retrieval Embedding)</b> a lightweight and
-                        plug-and-play retrieval model that incorporates data distribution into function representations for R package retrieval. Our main contributions are threefold:
-                        (i) We construct <b>RPKB</b>, a curated knowledge base of 8,191 high-quality R packages with functions spanning diverse statistical domains.
-                        (ii) We introduce <b>DARE</b>, an embedding model that incorporates data distribution for accurate R package retrieval.
-                        (iii) We design <b>RCodingAgent</b>, an R-oriented LLM agent, together with a suite of R-based statistical analysis tasks to systematically evaluate LLM agents under realistic analytical scenarios.
-                        Experimental results show that <b>DARE</b> achieves an <b>NDCG@10 of 93.47%</b>, outperforming open-source
-                        state-of-the-art embedding models by up to <b>17%</b> on R package retrieval while using only <b>23M parameters</b>.
-                        Furthermore, integrating DARE into RCodingAgent significantly improves downstream statistical analysis performance
-                        across multiple analytical tasks. This work bridges modern LLM-based automation with established statistical
-                        computing ecosystems.
+                    Large Language Model (LLM) agents can automate data-science workflows, but many rigorous
+                    statistical methods implemented in R remain underused because LLMs struggle with statistical
+                    knowledge and tool retrieval. Existing retrieval-augmented approaches focus on function-level
+                    semantics and ignore data distribution, producing suboptimal matches. We propose
+                    <b>DARE (Distribution-Aware Retrieval Embedding)</b>, a lightweight, plug-and-play retrieval model
+                    that incorporates data distribution information into function representations for R package
+                    retrieval. Our main contributions are: (i) <b>RPKB</b>, a curated R Package Knowledge Base derived
+                    from 8,191 high-quality CRAN packages; (ii) <b>DARE</b>, an embedding model that fuses
+                    distributional
+                    features with function metadata to improve retrieval relevance; and (iii) <b>RCodingAgent</b>, an
+                    R-oriented LLM agent for reliable R code generation and a suite of statistical analysis tasks for
+                    systematically evaluating LLM agents in realistic analytical scenarios. Empirically, <b>DARE</b>
+                    achieves an <b>NDCG@10 of 93.47%</b>, outperforming state-of-the-art open-source embeddings by up to
+                    <b>17%</b> on package retrieval while using substantially fewer parameters. Integrating DARE into
+                    RCodingAgent yields significant gains on downstream analysis tasks. This work helps narrow the
+                    gap between LLM automation and the mature R statistical ecosystem.
                 </div>
             </div>
         </div>
@@ -169,12 +171,12 @@
     <div class="container is-max-desktop">
         <img src="compare.png" class="teaser-img">
         <p class="caption">
-            <strong>Figure 1:</strong> DCRE significantly improves retrieval accuracy compared with general-purpose embedding models by incorporating distribution-aware representations.
+            <strong>Figure 1:</strong> DARE significantly improves retrieval accuracy compared with general-purpose embedding models by incorporating distribution-aware representations.
         </p>
 
         <img src="dcre.png" class="teaser-img">
         <p class="caption">
-            <strong>Figure 2:</strong> Overview of the DCRE framework. DCRE jointly models semantic intent and data distribution constraints to enable reliable statistical function retrieval.
+            <strong>Figure 2:</strong> Overview of the DARE framework. DARE jointly models semantic intent and data distribution constraints to enable reliable statistical function retrieval.
         </p>
 
 
@@ -217,7 +219,7 @@
                 <tr><td>all-mpnet-base-v2</td><td>110M</td><td>0.6606</td><td>0.6057</td><td>0.8330</td><td>0.4937</td></tr>
                 <tr><td>Base Model (MiniLM)</td><td>23M</td><td>0.6127</td><td>0.5553</td><td>0.7936</td><td>0.4412</td></tr>
                 <tr>
-                    <td><b>DCRE (Ours)</b></td>
+                    <td><b>DARE (Ours)</b></td>
                     <td><b>23M</b></td>
                     <td class="best-score">0.9347</td>
                     <td class="best-score">0.9176</td>
@@ -230,7 +232,7 @@
 
         <img src="qps.png" class="teaser-img" style="width: 60%; margin-top: 80px;">
         <p class="caption">
-            <strong>Figure 3:</strong> Efficiency comparison measured by queries-per-second (QPS). Despite its small parameter size, DCRE achieves both superior accuracy and fast retrieval speed.
+            <strong>Figure 3:</strong> Efficiency comparison measured by queries-per-second (QPS). Despite its small parameter size, DARE achieves both superior accuracy and fast retrieval speed.
         </p>
 
         <h3 class="title is-4 has-text-centered" style="margin-top: 4rem;">Downstream Agent Performance</h3>
