@@ -181,7 +181,6 @@
             <strong>Figure 2:</strong> The overall framework of DARE training process.
         </p>
 
-
         <img src="RCodingAgnt.png" class="teaser-img">
         <p class="caption">
             <strong>Figure 3:</strong> An example of RCodingAgent for realistic statistical analysis.
@@ -200,6 +199,7 @@
         <h2 class="section-title">Experimental Results</h2>
 
         <div class="table-container">
+            <strong>Table 1:</strong> Performance comparison with open-sourced SoTA embedding models on RPKB test set. Despite having only 23M parameters, DARE significantly outperforms all other models (up to 568M parameters) across all retrieval metrics.
             <table class="custom-table">
                 <thead>
                 <tr>
@@ -212,15 +212,78 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr><td>Snowflake/arctic-embed-l</td><td>335M</td><td>0.7932</td><td>0.7510</td><td>0.9235</td><td>0.6549</td></tr>
-                <tr><td>intfloat/e5-large-v2</td><td>335M</td><td>0.7513</td><td>0.7086</td><td>0.8838</td><td>0.6152</td></tr>
-                <tr><td>jina-embeddings-v2-base-en</td><td>137M</td><td>0.7429</td><td>0.6965</td><td>0.8873</td><td>0.5969</td></tr>
-                <tr><td>BAAI/bge-m3</td><td>568M</td><td>0.7308</td><td>0.6843</td><td>0.8758</td><td>0.5847</td></tr>
-                <tr><td>mxbai-embed-large-v1</td><td>335M</td><td>0.7068</td><td>0.6565</td><td>0.8639</td><td>0.5508</td></tr>
-                <tr><td>UAE-Large-V1</td><td>335M</td><td>0.7066</td><td>0.6556</td><td>0.8658</td><td>0.5479</td></tr>
-                <tr><td>gte-large-en-v1.5</td><td>435M</td><td>0.6639</td><td>0.6122</td><td>0.8257</td><td>0.5040</td></tr>
-                <tr><td>all-mpnet-base-v2</td><td>110M</td><td>0.6606</td><td>0.6057</td><td>0.8330</td><td>0.4937</td></tr>
-                <tr><td>Base Model (MiniLM)</td><td>23M</td><td>0.6127</td><td>0.5553</td><td>0.7936</td><td>0.4412</td></tr>
+                <tr>
+                    <td>Snowflake/arctic-embed-l</td>
+                    <td>335M</td>
+                    <td>0.7932</td>
+                    <td>0.7510</td>
+                    <td>0.9235</td>
+                    <td>0.6549</td>
+                </tr>
+                <tr>
+                    <td>intfloat/e5-large-v2</td>
+                    <td>335M</td>
+                    <td>0.7513</td>
+                    <td>0.7086</td>
+                    <td>0.8838</td>
+                    <td>0.6152</td>
+                </tr>
+                <tr>
+                    <td>jina-embeddings-v2-base-en</td>
+                    <td>137M</td>
+                    <td>0.7429</td>
+                    <td>0.6965</td>
+                    <td>0.8873</td>
+                    <td>0.5969</td>
+                </tr>
+                <tr>
+                    <td>BAAI/bge-m3</td>
+                    <td>568M</td>
+                    <td>0.7308</td>
+                    <td>0.6843</td>
+                    <td>0.8758</td>
+                    <td>0.5847</td>
+                </tr>
+                <tr>
+                    <td>mxbai-embed-large-v1</td>
+                    <td>335M</td>
+                    <td>0.7068</td>
+                    <td>0.6565</td>
+                    <td>0.8639</td>
+                    <td>0.5508</td>
+                </tr>
+                <tr>
+                    <td>UAE-Large-V1</td>
+                    <td>335M</td>
+                    <td>0.7066</td>
+                    <td>0.6556</td>
+                    <td>0.8658</td>
+                    <td>0.5479</td>
+                </tr>
+                <tr>
+                    <td>gte-large-en-v1.5</td>
+                    <td>435M</td>
+                    <td>0.6639</td>
+                    <td>0.6122</td>
+                    <td>0.8257</td>
+                    <td>0.5040</td>
+                </tr>
+                <tr>
+                    <td>all-mpnet-base-v2</td>
+                    <td>110M</td>
+                    <td>0.6606</td>
+                    <td>0.6057</td>
+                    <td>0.8330</td>
+                    <td>0.4937</td>
+                </tr>
+                <tr>
+                    <td>Base Model (MiniLM)</td>
+                    <td>23M</td>
+                    <td>0.6127</td>
+                    <td>0.5553</td>
+                    <td>0.7936</td>
+                    <td>0.4412</td>
+                </tr>
                 <tr>
                     <td><b>DARE (Ours)</b></td>
                     <td><b>23M</b></td>
@@ -235,57 +298,60 @@
 
         <img src="qps.png" class="teaser-img" style="width: 60%; margin-top: 80px;">
         <p class="caption">
-            <strong>Figure 3:</strong> Efficiency comparison measured by queries-per-second (QPS). Despite its small parameter size, DARE achieves both superior accuracy and fast retrieval speed.
+            <strong>Figure 5:</strong> Results of QPS and Latency.
         </p>
 
         <h3 class="title is-4 has-text-centered" style="margin-top: 4rem;">Downstream Agent Performance</h3>
         <div class="table-container">
-        <table class="custom-table">
-            <thead>
-            <tr>
-                <th>Model</th>
-                <th>RCodingAgent (w/o DARE)</th>
-                <th>RCodingAgent with DARE</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>claude-haiku-4.5</td>
-                <td>6.25%</td>
-                <td class="best-score">56.25% (50.00%)</td>
-            </tr>
-            <tr>
-                <td>deepseek-v3.2</td>
-                <td>18.75%</td>
-                <td class="best-score">56.25% (37.50%)</td>
-            </tr>
-            <tr>
-                <td>gpt-5.2</td>
-                <td>25.00%</td>
-                <td class="best-score">62.50% (37.50%)</td>
-            </tr>
-            <tr>
-                <td>grok-4.1-fast</td>
-                <td>18.75%</td>
-                <td class="best-score">75.00% (56.25%)</td>
-            </tr>
-            <tr>
-                <td>mimo-v2-flash</td>
-                <td>12.50%</td>
-                <td class="best-score">62.50% (50.00%)</td>
-            </tr>
-            <tr>
-                <td>minimax-m2.1</td>
-                <td>12.50%</td>
-                <td class="best-score">68.75% (56.25%)</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+            <strong>Table 2:</strong> Comparison of End-to-End Success Rates for Various LLM Agents on statistical analysis tasks, with and without the DARE Module.
+            <table class="custom-table">
+                <thead>
+                <tr>
+                    <th>Model</th>
+                    <th>RCodingAgent (w/o DARE)</th>
+                    <th>RCodingAgent with DARE</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>claude-haiku-4.5</td>
+                    <td>6.25%</td>
+                    <td class="best-score">56.25% (50.00%)</td>
+                </tr>
+                <tr>
+                    <td>deepseek-v3.2</td>
+                    <td>18.75%</td>
+                    <td class="best-score">56.25% (37.50%)</td>
+                </tr>
+                <tr>
+                    <td>gpt-5.2</td>
+                    <td>25.00%</td>
+                    <td class="best-score">62.50% (37.50%)</td>
+                </tr>
+                <tr>
+                    <td>grok-4.1-fast</td>
+                    <td>18.75%</td>
+                    <td class="best-score">75.00% (56.25%)</td>
+                </tr>
+                <tr>
+                    <td>mimo-v2-flash</td>
+                    <td>12.50%</td>
+                    <td class="best-score">62.50% (50.00%)</td>
+                </tr>
+                <tr>
+                    <td>minimax-m2.1</td>
+                    <td>12.50%</td>
+                    <td class="best-score">68.75% (56.25%)</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
 
         <div style="text-align:  center">
-            <a href="https://info.flagcounter.com/tw6M"><img src="https://s05.flagcounter.com/map/tw6M/size_m/txt_000000/border_CCCCCC/pageviews_1/viewers_1/flags_0/" alt="Flag Counter" border="0"></a>
+            <a href="https://info.flagcounter.com/tw6M"><img
+                    src="https://s05.flagcounter.com/map/tw6M/size_m/txt_000000/border_CCCCCC/pageviews_1/viewers_1/flags_0/"
+                    alt="Flag Counter" border="0"></a>
         </div>
 
     </div>
