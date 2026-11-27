@@ -48,6 +48,15 @@
             margin: 0 6px;
         }
 
+        .paper-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem 1.5rem;
+            margin-top: 0.75rem;
+            font-size: 0.95rem;
+        }
+
         .subtitle {
             font-size: 1.25rem;
             color: #4a4a4a;
@@ -137,6 +146,44 @@
         .container.is-max-desktop img {
             margin-top: 2rem;
         }
+
+        .paper-figure {
+            margin: 1.75rem 0 3rem;
+        }
+
+        .paper-figure .teaser-img {
+            margin: 0 auto;
+        }
+
+        .paper-figure .caption {
+            margin-bottom: 0;
+            padding: 0 5%;
+        }
+
+        .figure-open {
+            display: block;
+            border-radius: 8px;
+        }
+
+        .figure-open:hover .teaser-img {
+            border-color: #a7b6d2;
+        }
+
+        .figure-open:focus-visible {
+            outline: 2px solid #485fc7;
+            outline-offset: 4px;
+        }
+
+        .figure-section-title {
+            margin-top: 3.25rem;
+        }
+
+        .figure-note {
+            margin: -1.5rem 0 2rem;
+            text-align: center;
+            color: #555;
+            font-size: 0.95rem;
+        }
         /*img {*/
         /*    */
         /*}*/
@@ -156,6 +203,11 @@
                             <span>Code &amp; reproducibility</span>
                         </a>
                     </div>
+                    <nav class="paper-nav" aria-label="On this page">
+                        <a href="#methods">Methods</a>
+                        <a href="#results">Experimental results</a>
+                        <a href="#supplementary-figures">Supplementary figures</a>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -182,39 +234,60 @@
     </div>
 </section>
 
-<section class="section">
+<section class="section" id="methods" aria-labelledby="methods-title">
     <div class="container is-max-desktop">
-        <h2 class="section-title">Methods</h2>
-        <img src="compare.png" class="teaser-img" alt="Comparison of semantic-only and distribution-aware R function retrieval">
-        <p class="caption">
-            <strong>Figure 1:</strong> Semantic retrieval uses the query and documentation. DARE also uses
-            data profiles to rank functions that match the statistical task.
-        </p>
+        <h2 class="section-title" id="methods-title">Methods</h2>
+        <p class="figure-note">Select any figure to open it at full size.</p>
+        <figure class="paper-figure" id="figure-1">
+            <a class="figure-open" href="compare.png">
+                <img src="compare.png" class="teaser-img" width="1800" height="821"
+                     alt="Comparison of semantic-only and distribution-aware R function retrieval">
+            </a>
+            <figcaption class="caption">
+                <strong>Figure 1:</strong> Semantic retrieval uses the query and documentation. DARE also uses
+                data profiles to rank functions that match the statistical task.
+            </figcaption>
+        </figure>
 
-        <img src="dcre.png" class="teaser-img" loading="lazy" alt="DARE dual-encoder training with function data profiles and contrastive learning">
-        <p class="caption">
-            <strong>Figure 2:</strong> DARE training. The shared encoder learns to match queries to function
-            documentation augmented with data profiles.
-        </p>
+        <figure class="paper-figure" id="figure-2">
+            <a class="figure-open" href="dcre.png">
+                <img src="dcre.png" class="teaser-img" width="1800" height="923" loading="lazy"
+                     alt="DARE dual-encoder training with function data profiles and contrastive learning">
+            </a>
+            <figcaption class="caption">
+                <strong>Figure 2:</strong> DARE training. The shared encoder learns to match queries to function
+                documentation augmented with data profiles.
+            </figcaption>
+        </figure>
 
-        <img src="RCodingAgnt.png" class="teaser-img" loading="lazy" alt="RCodingAgent workflow from data profiling and R function retrieval to code execution">
-        <p class="caption">
-            <strong>Figure 3:</strong> RCodingAgent profiles the data, retrieves applicable R functions, and
-            iteratively writes and executes R code in response to execution feedback.
-        </p>
+        <figure class="paper-figure" id="figure-3">
+            <a class="figure-open" href="RCodingAgnt.png">
+                <img src="RCodingAgnt.png" class="teaser-img" width="1800" height="726" loading="lazy"
+                     alt="RCodingAgent workflow from data profiling and R function retrieval to code execution">
+            </a>
+            <figcaption class="caption">
+                <strong>Figure 3:</strong> RCodingAgent profiles the data, retrieves applicable R functions, and
+                iteratively writes and executes R code in response to execution feedback.
+            </figcaption>
+        </figure>
 
-        <img src="bench.png" class="teaser-img" loading="lazy" alt="Construction and composition of the 100-task RStatBench benchmark">
-        <p class="caption">
-            <strong>Figure 4:</strong> RStatBench construction and composition across 100 statistical tasks.
-            The lower panels summarize data dimensionality, modality, and application domain, alongside
-            a word cloud of statistical methods and tasks.
-        </p>
+        <figure class="paper-figure" id="figure-4">
+            <a class="figure-open" href="bench.png">
+                <img src="bench.png" class="teaser-img" width="1800" height="1316" loading="lazy"
+                     alt="Construction and composition of the 100-task RStatBench benchmark">
+            </a>
+            <figcaption class="caption">
+                <strong>Figure 4:</strong> RStatBench construction and composition across 100 statistical tasks.
+                The lower panels summarize data dimensionality, modality, and application domain, alongside
+                a word cloud of statistical methods and tasks.
+            </figcaption>
+        </figure>
     </div>
 </section>
 
-<section class="section">
+<section class="section" id="results" aria-labelledby="results-title">
     <div class="container is-max-desktop">
-        <h2 class="section-title">Experimental Results</h2>
+        <h2 class="section-title" id="results-title">Experimental Results</h2>
 
         <div class="table-container">
             <p><strong>Table 1:</strong> Retrieval on 32,764 queries against 8,191 R functions. Each entry
@@ -299,22 +372,32 @@
             </table>
         </div>
 
-        <img src="qps.png" class="teaser-img" loading="lazy" alt="NDCG at 10 versus single-query latency and batched throughput across fine-tuned backbones">
-        <p class="caption">
-            <strong>Figure 5:</strong> Retrieval accuracy versus latency and throughput. On the reported
-            benchmark, the MiniLM-based retriever reaches 93.92% NDCG@10 at 3.70 ms per query and
-            8,359 queries per second in batched encoding.
-        </p>
+        <figure class="paper-figure" id="figure-5">
+            <a class="figure-open" href="qps.png">
+                <img src="qps.png" class="teaser-img" width="1800" height="704" loading="lazy"
+                     alt="NDCG at 10 versus single-query latency and batched throughput across fine-tuned backbones">
+            </a>
+            <figcaption class="caption">
+                <strong>Figure 5:</strong> Retrieval accuracy versus latency and throughput. On the reported
+                benchmark, the MiniLM-based retriever reaches 93.92% NDCG@10 at 3.70 ms per query and
+                8,359 queries per second in batched encoding.
+            </figcaption>
+        </figure>
 
-        <h3 class="title is-4 has-text-centered" style="margin-top: 4rem;">Downstream Agent Performance</h3>
+        <h3 class="title is-4 has-text-centered figure-section-title">Downstream Agent Performance</h3>
         <p>On the same 100 RStatBench tasks, all ten LLMs improve with DARE retrieval under the same
         RCodingAgent configuration. Mean accuracy rises from <strong>31.8% to 62.2%</strong>, a gain of
         30.4 percentage points. Grok 4.5 achieves the highest accuracy with retrieval (72%), while
         MiniMax M2.1 shows the largest increase (16% to 59%).</p>
-        <img src="agent_accuracy.png" class="teaser-img" loading="lazy" alt="Ten paired bars show model accuracy increasing with DARE retrieval on RStatBench">
-        <p class="caption">
-            <strong>Figure 6:</strong> End-to-end task accuracy with and without DARE retrieval on RStatBench.
-        </p>
+        <figure class="paper-figure" id="figure-6">
+            <a class="figure-open" href="agent_accuracy.png">
+                <img src="agent_accuracy.png" class="teaser-img" width="1800" height="827" loading="lazy"
+                     alt="Ten paired bars show model accuracy increasing with DARE retrieval on RStatBench">
+            </a>
+            <figcaption class="caption">
+                <strong>Figure 6:</strong> End-to-end task accuracy with and without DARE retrieval on RStatBench.
+            </figcaption>
+        </figure>
         <details class="table-container results-details">
             <summary>View task accuracy by model</summary>
             <table class="custom-table" aria-label="RStatBench task accuracy by model with and without DARE">
@@ -343,17 +426,83 @@
             </table>
         </details>
 
+        <h3 class="title is-4 has-text-centered figure-section-title">Agent Efficiency and Cost</h3>
+        <p>All ten models use fewer agent steps on average with DARE. Mean steps per task fall from
+            9.65 to 6.49, while mean token use and cost fall by 38.18% and 36.94%, respectively.
+            In the paper's duration analysis, mean runtime falls from 107.77 to 65.67 seconds.</p>
+        <figure class="paper-figure" id="figure-7">
+            <a class="figure-open" href="agent_efficiency.png">
+                <img src="agent_efficiency.png" class="teaser-img" width="2600" height="1741" loading="lazy"
+                     alt="Four panels compare task accuracy against duration, agent steps, token use, and cost, with paired arrows for each model">
+            </a>
+            <figcaption class="caption">
+                <strong>Figure 7:</strong> Agent efficiency and cost with and without DARE retrieval.
+                Each arrow connects the same model under the two conditions.
+            </figcaption>
+        </figure>
+
+        <h3 class="title is-4 has-text-centered figure-section-title">Accuracy by Application Domain</h3>
+        <p>With DARE, mean accuracy rises from 30.77% to 74.62% in Biostatistics and Epidemiology and
+            from 25.56% to 64.44% in Time-series and Signal Analysis. Statistical Genetics and
+            Bioinformatics remains more challenging, at 58.18% with retrieval.</p>
+        <figure class="paper-figure" id="figure-8">
+            <a class="figure-open" href="domain_accuracy.png">
+                <img src="domain_accuracy.png" class="teaser-img" width="2600" height="1225" loading="lazy"
+                     alt="Ten radar charts show RStatBench accuracy with and without DARE across application domains">
+            </a>
+            <figcaption class="caption">
+                <strong>Figure 8:</strong> RStatBench accuracy by application domain for each of the ten models.
+                The domain labels include the number of tasks.
+            </figcaption>
+        </figure>
+
+    </div>
+</section>
+
+<section class="section" id="supplementary-figures" aria-labelledby="supplementary-title">
+    <div class="container is-max-desktop">
+        <h2 class="section-title" id="supplementary-title">Supplementary Figures</h2>
+
+        <h3 class="title is-4 has-text-centered">Training and Retrieval Evaluation</h3>
+        <figure class="paper-figure" id="figure-9">
+            <a class="figure-open" href="backbone_training_loss.png">
+                <img src="backbone_training_loss.png" class="teaser-img" width="2200" height="1204" loading="lazy"
+                     alt="Training-loss trajectories for nine embedding backbones over 100 epochs">
+            </a>
+            <figcaption class="caption">
+                <strong>Figure 9:</strong> Training loss over 100 epochs for the nine fine-tuned backbones.
+            </figcaption>
+        </figure>
+        <figure class="paper-figure" id="figure-10">
+            <a class="figure-open" href="backbone_full_test_metrics.png">
+                <img src="backbone_full_test_metrics.png" class="teaser-img" width="2400" height="1637" loading="lazy"
+                     alt="Four panels show Recall at 1, Recall at 10, NDCG at 10, and MRR at 10 across checkpoints">
+            </a>
+            <figcaption class="caption">
+                <strong>Figure 10:</strong> Recall@1, Recall@10, NDCG@10, and MRR@10 at each checkpoint
+                for the nine fine-tuned backbones.
+            </figcaption>
+        </figure>
+
+        <h3 class="title is-4 has-text-centered figure-section-title">RCodingAgent Execution Example</h3>
+        <figure class="paper-figure" id="figure-11">
+            <a class="figure-open" href="agent_execution_example.png">
+                <img src="agent_execution_example.png" class="teaser-img" width="2600" height="2521" loading="lazy"
+                     alt="A HiDRA regulatory-score task with retrieved R functions, executed code, and resulting observations">
+            </a>
+            <figcaption class="caption">
+                <strong>Figure 11:</strong> An RCodingAgent trace for a HiDRA regulatory-score task,
+                including retrieved functions, generated R code, and execution observations.
+            </figcaption>
+        </figure>
 
         <div style="text-align:  center">
             <a href="https://info.flagcounter.com/tw6M"><img
                     src="https://s05.flagcounter.com/map/tw6M/size_m/txt_000000/border_CCCCCC/pageviews_1/viewers_1/flags_0/"
                     alt="Flag Counter" border="0"></a>
         </div>
-
     </div>
 </section>
-
-
 
 </body>
 </html>
