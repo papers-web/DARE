@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="description"
-          content="DARE: Distribution-Conditional Retrieval Embedding for Aligning LLM Agents with Statistical Ecosystems">
+          content="DARE improves R function retrieval using data profiles and evaluates end-to-end statistical analysis with RCodingAgent on RStatBench.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>DARE: Aligning LLM Agents with the R Statistical Ecosystem via Distribution-Aware Retrieval</title>
 
@@ -89,6 +89,24 @@
             color: #333;
         }
 
+        .custom-table td:not(:first-child),
+        .custom-table th:not(:first-child) {
+            white-space: nowrap;
+        }
+
+        .baseline-score {
+            color: #555;
+        }
+
+        .results-details summary {
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .results-details .custom-table {
+            margin-top: 1rem;
+        }
+
         .best-score {
             font-weight: bold;
             color: #d32f2f;
@@ -98,7 +116,8 @@
         .teaser-img {
             display: block; /* 设为块级元素 */
             margin: 0 auto 1.5rem auto; /* 左右自动实现居中，下边距 1.5rem */
-            max-width: 80%; /* 限制最大宽度 */
+            width: 100%;
+            height: auto;
             border-radius: 8px;
             border: 1px solid #eee;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
@@ -132,7 +151,11 @@
                 <div class="column has-text-centered">
                     <h1 class="title is-1 publication-title">DARE: Aligning LLM Agents with the R Statistical Ecosystem via Distribution-Aware Retrieval</h1>
                     <div class="column has-text-centered publication-links">
-                        </div>
+                        <a href="https://github.com/papers-web/DARE_code" class="button is-dark is-rounded">
+                            <span class="icon"><i class="fab fa-github" aria-hidden="true"></i></span>
+                            <span>Code &amp; reproducibility</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -145,22 +168,14 @@
             <div class="column is-four-fifths">
                 <h2 class="section-title">Abstract</h2>
                 <div class="abstract-box">
-                    Large Language Model (LLM) agents can automate data-science workflows, but many rigorous
-                    statistical methods implemented in R remain underused because LLMs struggle with statistical
-                    knowledge and tool retrieval. Existing retrieval-augmented approaches focus on function-level
-                    semantics and ignore data distribution, producing suboptimal matches. We propose
-                    <b>DARE (Distribution-Aware Retrieval Embedding)</b>, a lightweight, plug-and-play retrieval model
-                    that incorporates data distribution information into function representations for R package
-                    retrieval. Our main contributions are: (i) <b>RPKB</b>, a curated R Package Knowledge Base derived
-                    from 8,191 high-quality CRAN packages; (ii) <b>DARE</b>, an embedding model that fuses
-                    distributional
-                    features with function metadata to improve retrieval relevance; and (iii) <b>RCodingAgent</b>, an
-                    R-oriented LLM agent for reliable R code generation and a suite of statistical analysis tasks for
-                    systematically evaluating LLM agents in realistic analytical scenarios. Empirically, <b>DARE</b>
-                    achieves an <b>NDCG@10 of 93.47%</b>, outperforming state-of-the-art open-source embeddings by up to
-                    <b>17%</b> on package retrieval while using substantially fewer parameters. Integrating DARE into
-                    RCodingAgent yields significant gains on downstream analysis tasks. This work helps narrow the
-                    gap between LLM automation and the mature R statistical ecosystem.
+                    Finding an R function for a statistical analysis requires matching both the question and the
+                    properties of the data. <b>DARE (Distribution-Aware Retrieval Embedding)</b> incorporates data
+                    profiles into function retrieval. It draws on <b>RPKB</b>, a knowledge base of 8,191 functions
+                    curated from documentation for 1,000 CRAN packages. DARE fine-tuning improves NDCG@10 by
+                    13.43 to 32.65 percentage points across nine embedding backbones. The 23M-parameter MiniLM-based
+                    retriever reaches <b>93.92% NDCG@10</b>. We integrate DARE into <b>RCodingAgent</b> and evaluate
+                    it on <b>RStatBench</b>, a benchmark of 100 end-to-end R statistical analysis tasks. Across
+                    ten LLMs, enabling DARE retrieval raises mean task accuracy from <b>31.8% to 62.2%</b>.
                 </div>
             </div>
         </div>
@@ -170,26 +185,29 @@
 <section class="section">
     <div class="container is-max-desktop">
         <h2 class="section-title">Methods</h2>
-        <img src="compare.png" class="teaser-img" style="width: 70%">
+        <img src="compare.png" class="teaser-img" alt="Comparison of semantic-only and distribution-aware R function retrieval">
         <p class="caption">
-            <strong>Figure 1:</strong> Comparison of traditional semantic function search
-        methods and Distribution-Aware Retrieval Embedding (DARE) method.
+            <strong>Figure 1:</strong> Semantic retrieval uses the query and documentation. DARE also uses
+            data profiles to rank functions that match the statistical task.
         </p>
 
-        <img src="dcre.png" class="teaser-img" style="width: 90%">
+        <img src="dcre.png" class="teaser-img" loading="lazy" alt="DARE dual-encoder training with function data profiles and contrastive learning">
         <p class="caption">
-            <strong>Figure 2:</strong> The overall framework of DARE training process.
+            <strong>Figure 2:</strong> DARE training. The shared encoder learns to match queries to function
+            documentation augmented with data profiles.
         </p>
 
-        <img src="RCodingAgnt.png" class="teaser-img">
+        <img src="RCodingAgnt.png" class="teaser-img" loading="lazy" alt="RCodingAgent workflow from data profiling and R function retrieval to code execution">
         <p class="caption">
-            <strong>Figure 3:</strong> An example of RCodingAgent for realistic statistical analysis.
+            <strong>Figure 3:</strong> RCodingAgent profiles the data, retrieves applicable R functions, and
+            iteratively writes and executes R code in response to execution feedback.
         </p>
 
-        <img src="bench.png" class="teaser-img" style="width: 90%">
+        <img src="bench.png" class="teaser-img" loading="lazy" alt="Construction and composition of the 100-task RStatBench benchmark">
         <p class="caption">
-            <strong>Figure 4:</strong> Upper panel: Pipeline for constructing R-based statistical evaluation tasks. Lower panel: Overview of selected domains and R
-            packages covered in the benchmark.
+            <strong>Figure 4:</strong> RStatBench construction and composition across 100 statistical tasks.
+            The lower panels summarize data dimensionality, modality, and application domain, alongside
+            a word cloud of statistical methods and tasks.
         </p>
     </div>
 </section>
@@ -199,153 +217,131 @@
         <h2 class="section-title">Experimental Results</h2>
 
         <div class="table-container">
-            <strong>Table 1:</strong> Performance comparison with open-sourced SoTA embedding models on RPKB test set. Despite having only 23M parameters, DARE significantly outperforms all other models (up to 568M parameters) across all retrieval metrics.
-            <table class="custom-table">
+            <p><strong>Table 1:</strong> Retrieval on 32,764 queries against 8,191 R functions. Each entry
+            shows the score after DARE fine-tuning, with the same backbone's score before fine-tuning in
+            parentheses. All values are percentages.</p>
+            <table class="custom-table" aria-label="Retrieval performance before and after DARE fine-tuning">
                 <thead>
                 <tr>
-                    <th>Model</th>
-                    <th>Params</th>
-                    <th>NDCG@10</th>
-                    <th>MRR@10</th>
-                    <th>Recall@10</th>
-                    <th>Recall@1</th>
+                    <th scope="col">Backbone</th>
+                    <th scope="col">Parameters</th>
+                    <th scope="col">NDCG@10</th>
+                    <th scope="col">MRR@10</th>
+                    <th scope="col">Recall@10</th>
+                    <th scope="col">Recall@1</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>Snowflake/arctic-embed-l</td>
-                    <td>335M</td>
-                    <td>0.7932</td>
-                    <td>0.7510</td>
-                    <td>0.9235</td>
-                    <td>0.6549</td>
+                    <td>Jina Embeddings v2 Base EN</td><td>137M</td>
+                    <td><span class="best-score">94.40</span> <span class="baseline-score">(74.29)</span></td>
+                    <td><span class="best-score">93.00</span> <span class="baseline-score">(69.65)</span></td>
+                    <td>98.61 <span class="baseline-score">(88.73)</span></td>
+                    <td>89.39 <span class="baseline-score">(59.69)</span></td>
                 </tr>
                 <tr>
-                    <td>intfloat/e5-large-v2</td>
-                    <td>335M</td>
-                    <td>0.7513</td>
-                    <td>0.7086</td>
-                    <td>0.8838</td>
-                    <td>0.6152</td>
+                    <td>GTE Large EN v1.5</td><td>434M</td>
+                    <td>94.36 <span class="baseline-score">(66.39)</span></td>
+                    <td>92.98 <span class="baseline-score">(61.22)</span></td>
+                    <td>98.53 <span class="baseline-score">(82.57)</span></td>
+                    <td><span class="best-score">89.42</span> <span class="baseline-score">(50.40)</span></td>
                 </tr>
                 <tr>
-                    <td>jina-embeddings-v2-base-en</td>
-                    <td>137M</td>
-                    <td>0.7429</td>
-                    <td>0.6965</td>
-                    <td>0.8873</td>
-                    <td>0.5969</td>
+                    <td>All-MPNet-Base-v2</td><td>110M</td>
+                    <td>94.11 <span class="baseline-score">(66.06)</span></td>
+                    <td>92.57 <span class="baseline-score">(60.57)</span></td>
+                    <td><span class="best-score">98.75</span> <span class="baseline-score">(83.30)</span></td>
+                    <td>88.59 <span class="baseline-score">(49.37)</span></td>
                 </tr>
                 <tr>
-                    <td>BAAI/bge-m3</td>
-                    <td>568M</td>
-                    <td>0.7308</td>
-                    <td>0.6843</td>
-                    <td>0.8758</td>
-                    <td>0.5847</td>
+                    <td>UAE Large v1</td><td>335M</td>
+                    <td>94.05 <span class="baseline-score">(70.66)</span></td>
+                    <td>92.58 <span class="baseline-score">(65.56)</span></td>
+                    <td>98.46 <span class="baseline-score">(86.58)</span></td>
+                    <td>88.81 <span class="baseline-score">(54.79)</span></td>
                 </tr>
                 <tr>
-                    <td>mxbai-embed-large-v1</td>
-                    <td>335M</td>
-                    <td>0.7068</td>
-                    <td>0.6565</td>
-                    <td>0.8639</td>
-                    <td>0.5508</td>
+                    <td>MXBAI Embed Large v1</td><td>335M</td>
+                    <td>93.92 <span class="baseline-score">(70.68)</span></td>
+                    <td>92.45 <span class="baseline-score">(65.65)</span></td>
+                    <td>98.38 <span class="baseline-score">(86.39)</span></td>
+                    <td>88.64 <span class="baseline-score">(55.08)</span></td>
                 </tr>
                 <tr>
-                    <td>UAE-Large-V1</td>
-                    <td>335M</td>
-                    <td>0.7066</td>
-                    <td>0.6556</td>
-                    <td>0.8658</td>
-                    <td>0.5479</td>
+                    <td>BGE-M3</td><td>568M</td>
+                    <td>93.83 <span class="baseline-score">(73.08)</span></td>
+                    <td>92.30 <span class="baseline-score">(68.43)</span></td>
+                    <td>98.45 <span class="baseline-score">(87.58)</span></td>
+                    <td>88.37 <span class="baseline-score">(58.47)</span></td>
                 </tr>
                 <tr>
-                    <td>gte-large-en-v1.5</td>
-                    <td>435M</td>
-                    <td>0.6639</td>
-                    <td>0.6122</td>
-                    <td>0.8257</td>
-                    <td>0.5040</td>
+                    <td>Snowflake Arctic Embed L</td><td>335M</td>
+                    <td>92.75 <span class="baseline-score">(79.32)</span></td>
+                    <td>90.91 <span class="baseline-score">(75.10)</span></td>
+                    <td>98.31 <span class="baseline-score">(92.35)</span></td>
+                    <td>86.12 <span class="baseline-score">(65.49)</span></td>
                 </tr>
                 <tr>
-                    <td>all-mpnet-base-v2</td>
-                    <td>110M</td>
-                    <td>0.6606</td>
-                    <td>0.6057</td>
-                    <td>0.8330</td>
-                    <td>0.4937</td>
+                    <td>E5 Large v2</td><td>335M</td>
+                    <td>91.53 <span class="baseline-score">(75.13)</span></td>
+                    <td>89.26 <span class="baseline-score">(70.86)</span></td>
+                    <td>98.38 <span class="baseline-score">(88.38)</span></td>
+                    <td>83.46 <span class="baseline-score">(61.52)</span></td>
                 </tr>
                 <tr>
-                    <td>Base Model (MiniLM)</td>
-                    <td>23M</td>
-                    <td>0.6127</td>
-                    <td>0.5553</td>
-                    <td>0.7936</td>
-                    <td>0.4412</td>
-                </tr>
-                <tr>
-                    <td><b>DARE (Ours)</b></td>
-                    <td><b>23M</b></td>
-                    <td class="best-score">0.9347</td>
-                    <td class="best-score">0.9176</td>
-                    <td class="best-score">0.9863</td>
-                    <td class="best-score">0.8739</td>
+                    <td><strong>MiniLM-L6-v2</strong></td><td>23M</td>
+                    <td>93.92 <span class="baseline-score">(61.27)</span></td>
+                    <td>92.33 <span class="baseline-score">(55.53)</span></td>
+                    <td>98.71 <span class="baseline-score">(79.36)</span></td>
+                    <td>88.23 <span class="baseline-score">(44.12)</span></td>
                 </tr>
                 </tbody>
             </table>
         </div>
 
-        <img src="qps.png" class="teaser-img" style="width: 60%; margin-top: 80px;">
+        <img src="qps.png" class="teaser-img" loading="lazy" alt="NDCG at 10 versus single-query latency and batched throughput across fine-tuned backbones">
         <p class="caption">
-            <strong>Figure 5:</strong> Results of QPS and Latency.
+            <strong>Figure 5:</strong> Retrieval accuracy versus latency and throughput. On the reported
+            benchmark, the MiniLM-based retriever reaches 93.92% NDCG@10 at 3.70 ms per query and
+            8,359 queries per second in batched encoding.
         </p>
 
         <h3 class="title is-4 has-text-centered" style="margin-top: 4rem;">Downstream Agent Performance</h3>
-        <div class="table-container">
-            <strong>Table 2:</strong> Comparison of End-to-End Success Rates for Various LLM Agents on statistical analysis tasks, with and without the DARE Module.
-            <table class="custom-table">
+        <p>On the same 100 RStatBench tasks, all ten LLMs improve with DARE retrieval under the same
+        RCodingAgent configuration. Mean accuracy rises from <strong>31.8% to 62.2%</strong>, a gain of
+        30.4 percentage points. Grok 4.5 achieves the highest accuracy with retrieval (72%), while
+        MiniMax M2.1 shows the largest increase (16% to 59%).</p>
+        <img src="agent_accuracy.png" class="teaser-img" loading="lazy" alt="Ten paired bars show model accuracy increasing with DARE retrieval on RStatBench">
+        <p class="caption">
+            <strong>Figure 6:</strong> End-to-end task accuracy with and without DARE retrieval on RStatBench.
+        </p>
+        <details class="table-container results-details">
+            <summary>View task accuracy by model</summary>
+            <table class="custom-table" aria-label="RStatBench task accuracy by model with and without DARE">
                 <thead>
                 <tr>
-                    <th>Model</th>
-                    <th>RCodingAgent (w/o DARE)</th>
-                    <th>RCodingAgent with DARE</th>
+                    <th scope="col">Model</th>
+                    <th scope="col">Without DARE</th>
+                    <th scope="col">With DARE</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>claude-haiku-4.5</td>
-                    <td>6.25%</td>
-                    <td class="best-score">56.25% (50.00%)</td>
-                </tr>
-                <tr>
-                    <td>deepseek-v3.2</td>
-                    <td>18.75%</td>
-                    <td class="best-score">56.25% (37.50%)</td>
-                </tr>
-                <tr>
-                    <td>gpt-5.2</td>
-                    <td>25.00%</td>
-                    <td class="best-score">62.50% (37.50%)</td>
-                </tr>
-                <tr>
-                    <td>grok-4.1-fast</td>
-                    <td>18.75%</td>
-                    <td class="best-score">75.00% (56.25%)</td>
-                </tr>
-                <tr>
-                    <td>mimo-v2-flash</td>
-                    <td>12.50%</td>
-                    <td class="best-score">62.50% (50.00%)</td>
-                </tr>
-                <tr>
-                    <td>minimax-m2.1</td>
-                    <td>12.50%</td>
-                    <td class="best-score">68.75% (56.25%)</td>
-                </tr>
+                <tr><td>Grok 4.5</td><td>44%</td><td class="best-score">72%</td></tr>
+                <tr><td>Gemini 3.1 Pro</td><td>35%</td><td>66%</td></tr>
+                <tr><td>GPT-5.6 Sol</td><td>49%</td><td>64%</td></tr>
+                <tr><td>GPT-5.6 Terra</td><td>40%</td><td>64%</td></tr>
+                <tr><td>DeepSeek V4 Flash</td><td>31%</td><td>64%</td></tr>
+                <tr><td>DeepSeek V4 Pro</td><td>25%</td><td>64%</td></tr>
+                <tr><td>Claude Haiku 4.5</td><td>21%</td><td>61%</td></tr>
+                <tr><td>MiniMax M2.1</td><td>16%</td><td>59%</td></tr>
+                <tr><td>GPT-5.3 Codex</td><td>25%</td><td>56%</td></tr>
+                <tr><td>GPT-5.6 Luna</td><td>32%</td><td>52%</td></tr>
                 </tbody>
+                <tfoot>
+                <tr><th scope="row">Mean</th><td>31.8%</td><td>62.2%</td></tr>
+                </tfoot>
             </table>
-        </div>
+        </details>
 
 
         <div style="text-align:  center">
