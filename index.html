@@ -206,14 +206,21 @@
             <div class="column is-four-fifths">
                 <h2 class="section-title">Abstract</h2>
                 <div class="abstract-box">
-                    Finding an R function for a statistical analysis requires matching both the question and the
-                    properties of the data. <b>DARE (Distribution-Aware Retrieval Embedding)</b> incorporates data
-                    profiles into function retrieval. It draws on <b>RPKB</b>, a knowledge base of 8,191 functions
-                    curated from documentation for 1,000 CRAN packages. DARE fine-tuning improves NDCG@10 by
-                    13.43 to 32.65 percentage points across nine embedding backbones. The 23M-parameter MiniLM-based
-                    retriever reaches <b>93.92% NDCG@10</b>. We integrate DARE into <b>RCodingAgent</b> and evaluate
-                    it on <b>RStatBench</b>, a benchmark of 100 end-to-end R statistical analysis tasks. Across
-                    ten LLMs, enabling DARE retrieval raises mean task accuracy from <b>31.8% to 62.2%</b>.
+                    Large Language Model (LLM) agents excel at automating data science workflows, yet often
+                    underutilize rigorous statistical methods in R. Existing Retrieval-Augmented Generation (RAG)
+                    approaches rely on semantic similarity, ignoring the data-distribution and structural
+                    characteristics crucial for determining a statistical method's applicability. To address this,
+                    we propose DARE (Distribution-Aware Retrieval Embedding), a representation learning framework
+                    incorporating these data characteristics into R function retrieval. Our contributions are
+                    fourfold: (i) RPKB, a curated knowledge base of 8,191 high-quality R functions; (ii) DARE,
+                    the distribution-aware retrieval framework; (iii) RCodingAgent, an R-oriented agent
+                    integrating DARE for end-to-end analysis; and (iv) RStatBench, a comprehensive benchmark of
+                    100 statistical tasks. Experiments demonstrate that DARE improves NDCG@10 by 13.43–32.65
+                    percentage points across evaluated embedding models, with a MiniLM-based DARE achieving
+                    93.92% NDCG@10 alongside high efficiency. Furthermore, integrating DARE into RCodingAgent
+                    nearly doubles mean downstream accuracy on RStatBench, increasing from 31.8% to 62.2%
+                    across ten LLMs. This work helps bridge modern LLM automation with R's established
+                    statistical computing ecosystem.
                 </div>
             </div>
         </div>
